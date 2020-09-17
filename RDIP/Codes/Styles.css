@@ -75,18 +75,13 @@ body{
 	margin-top: 6px;
 	margin-right: 2px
 }
-.Intro h2{
-	font-family: "Playfair Display";
-	font-weight: 500;
-}
+
 .Intro p{
 	line-height: 27px;
 }
 .theory h2,h3{
 	font-family: "Playfair Display";
 	font-weight: 500;
-}
-.theory h3{
 	text-decoration: underline;
 }
 .theory p{
@@ -95,6 +90,15 @@ body{
 .hideonscreen {
 	display: none;
 }
-.showonscreen {
-	display: block;
+.message{
+	color:#8B008B;
+	margin-left: 10em;
+}
+.message em{
+	color:#FF69B4;
+	margin-left: 16em;
+}
+h2{
+	font-family: "Playfair Display";
+	font-weight: 500;
 }

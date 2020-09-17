@@ -63,9 +63,13 @@ var hindi=[
 ]
 
 ];
-
 var mains=document.querySelectorAll(".maininfo_sub ul li ");
 var main_1=document.querySelectorAll(".main_1");
+var span=document.querySelector(".message");
+var options=document.querySelector(".options");
+span.classList.add("hideonscreen");
+
+//action to be performed while clicking on buttons
 for(let i=0; i<main_1.length; i++){
 	main_1[i].classList.add("hideonscreen");
 	let l=[0,1,2,3,4,5];
@@ -77,4 +81,13 @@ for(let i=0; i<main_1.length; i++){
 	 	}
 	 }
 	});
+}
+
+//action to be performed when selecting a language
+
+for(let a=1;a<options.length;a++){
+	options.oninput= function(){
+		
+	span.classList.remove("hideonscreen");
+	}
 }
