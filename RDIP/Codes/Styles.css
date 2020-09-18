@@ -125,7 +125,8 @@ color: #A52A2A;
 font-size: 36px;
 
 }
-.experiment .reform{
+.experiment .reform,.check_sen{
 	display: none;
 	margin: 0 auto;
 }
+

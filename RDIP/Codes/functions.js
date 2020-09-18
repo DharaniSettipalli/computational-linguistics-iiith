@@ -71,7 +71,6 @@ var randomize_class=document.querySelector(".randomize");
 var formed_sen=document.querySelector(".formed_sen_message");
 var printbtn=document.querySelector(".printwords");
 span.classList.add("hideonscreen");
-var k=0;
 //action to be performed while clicking on buttons
 for(let i=0; i<main_1.length; i++){
 	main_1[i].classList.add("hideonscreen");
@@ -87,6 +86,14 @@ for(let i=0; i<main_1.length; i++){
 	 for(let j of l){
 	 	if(i!= j){
 		 	main_1[j].classList.add("hideonscreen");
+		 	printbtn.innerHTML="";
+			randomize_class.style.display="none";
+			span.style.display="none";
+			formed_sen.innerHTML="";
+			document.querySelector(".reform").style.display="none";
+			document.querySelector(".check_sen_res").innerHTML="";
+			document.querySelector(".check_sen").style.display="none";
+			options.value="prefer";
 	 	}
 	 }
 	});
@@ -96,22 +103,34 @@ for(let i=0; i<main_1.length; i++){
 function dropdown(){
 	options.oninput= function(){	
 	document.querySelector(".experiment .reform").style.display="none";
+	formed_sen.innerHTML="";
+	document.querySelector(".check_sen_res").innerHTML="";
+	document.querySelector(".check_sen").style.display="none"
+
 	span.classList.remove("hideonscreen");
 	/*alert(options.value);*/
 	if(options.value=="prefer"){
 		alert("select any language");
+		printbtn.innerHTML="";
+		randomize_class.style.display="none";
+		span.style.display="none";
 		return false;
 	}
-	if(options.value == "eng")
+	if(options.value == "eng"){
+		randomize_class.style.display="block";
+		span.style.display="block";
 		random_sentence("eng");
+	}
 	else if(options.value == "hin"){
+		span.style.display="block";
+		randomize_class.style.display="block";
 		random_sentence("hin");
 	}
 
 	}
 }	
 
-
+var List_eng,List_hin;
 //for selecting random sentence from array may it be english or hindi
 function random_sentence(val){
 if(val=="eng"){
@@ -120,6 +139,9 @@ var rand=Math.floor(d);
 var d1=english[rand].length*Math.random();
 var rand_word=Math.floor(d1);
 console.log(english[rand][rand_word]);
+
+List_eng=english[rand];
+
 var eng_list=english[rand][rand_word].split(" ");
 generate_rand_words(eng_list,"eng",1);
 }
@@ -130,6 +152,9 @@ else if(val=="hin"){
 	var rand_word=Math.floor(d1);
 	/*alert(rand_word);*/
 	console.log(hindi[rand][rand_word]);
+
+	List_hin=hindi[rand];
+
 	var hind_list=hindi[rand][rand_word].split(" ");
 	generate_rand_words(hind_list,"hin",1);
 }
@@ -192,10 +217,12 @@ List=list;
 function btnclick(words){
 	var printbtn=document.querySelector(".printwords");
 	var formed_sen=document.querySelector(".formed_sen_message");
+	var I;
 	// removing any previoussly formed sentences 
      	while (printbtn.hasChildNodes()) {  
 		  printbtn.removeChild(printbtn.firstChild);
 		}
+	I=words.length;
 	for(let i=0; i< words.length; i++){
 		words[i].onclick=function(){
 			document.querySelector(".experiment .reform").style.display="block";
@@ -204,8 +231,15 @@ function btnclick(words){
 			p_word.innerText=words[i].innerText+" ";
 			printbtn.appendChild(p_word);
 			words[i].style.display="none";
+			console.log(I-1);
+			I-=1
+			if(I==0){
+					document.querySelector(".check_sen").style.display="block";
+				}
+			}
+
 		}
-	}
+	
 }
 
 //function for reforming the sentence
@@ -213,6 +247,8 @@ function btnclick(words){
 var reform=document.querySelector(".experiment .reform");
 reform.onclick=function(){
 	var formed_sen=document.querySelector(".formed_sen_message");
+	document.querySelector(".check_sen_res").innerHTML="";
+	document.querySelector(".check_sen").style.display="none";
 	formed_sen.innerHTML="";
 		if(options.value == "eng")
 			/*alert("eng");*/
@@ -221,10 +257,10 @@ reform.onclick=function(){
 			// alert(List);
 		generate_rand_words(List,"hin",0);
 	this.style.display="none";
-
 }
-
-
+ //function to add functionality for check the sentence
+var check_sentence=document.querySelector(".check_sen");
+var check_sentence_res=document.querySelector(".check_sen_res");
 
 
 
