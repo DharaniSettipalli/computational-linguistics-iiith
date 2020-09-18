@@ -82,6 +82,7 @@ for(let i=0; i<main_1.length; i++){
 	 main_1[i].classList.remove("hideonscreen");
 	 	if(i==3){
 	 		dropdown();
+	 		document.querySelector(".get_correct").style.display="none";
 	 	}
 	 for(let j of l){
 	 	if(i!= j){
@@ -94,6 +95,7 @@ for(let i=0; i<main_1.length; i++){
 			document.querySelector(".check_sen_res").innerHTML="";
 			document.querySelector(".check_sen").style.display="none";
 			options.value="prefer";
+			document.querySelector(".get_correct").style.display="none";	
 	 	}
 	 }
 	});
@@ -114,17 +116,20 @@ function dropdown(){
 		printbtn.innerHTML="";
 		randomize_class.style.display="none";
 		span.style.display="none";
+		document.querySelector(".get_correct").style.display="none";
 		return false;
 	}
 	if(options.value == "eng"){
 		randomize_class.style.display="block";
 		span.style.display="block";
 		random_sentence("eng");
+		document.querySelector(".get_correct").style.display="none";
 	}
 	else if(options.value == "hin"){
 		span.style.display="block";
 		randomize_class.style.display="block";
 		random_sentence("hin");
+		document.querySelector(".get_correct").style.display="none";
 	}
 
 	}
@@ -249,6 +254,7 @@ reform.onclick=function(){
 	var formed_sen=document.querySelector(".formed_sen_message");
 	document.querySelector(".check_sen_res").innerHTML="";
 	document.querySelector(".check_sen").style.display="none";
+	document.querySelector(".get_correct").style.display="none";
 	formed_sen.innerHTML="";
 		if(options.value == "eng")
 			/*alert("eng");*/
@@ -261,7 +267,29 @@ reform.onclick=function(){
  //function to add functionality for check the sentence
 var check_sentence=document.querySelector(".check_sen");
 var check_sentence_res=document.querySelector(".check_sen_res");
-
+check_sentence.onclick=function(){
+		if(options.value=="eng" ){
+			if(List_eng.includes(printbtn.innerText)){
+				
+				check_sentence_res.innerHTML="<strong style='color: green;font-size:36px; margin-left:35%'>Right answer!!! </strong>";
+			}
+			else{
+				check_sentence_res.innerHTML="<strong style='color: red;font-size:36px; margin-left:35% '>Wrong answer!!! </strong>";
+				document.querySelector(".get_correct").style.display="block";
+			}
+		}
+		else if(options.value=="hin"){
+			if(List_hin.includes(printbtn.innerText)){
+				
+				check_sentence_res.innerHTML="<strong style='color: green;font-size:36px; margin-left:35%'>Right answer!!!</strong>";
+			}
+			else{
+				check_sentence_res.innerHTML="<strong style='color: red;font-size:36px; margin-left:35% '>Wrong answer!!! </strong>";
+				document.querySelector(".get_correct").style.display="block";	
+			}
+		}
+			
+}
 
 
 
