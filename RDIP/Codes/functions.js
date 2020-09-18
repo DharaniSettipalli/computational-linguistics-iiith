@@ -121,7 +121,7 @@ var d1=english[rand].length*Math.random();
 var rand_word=Math.floor(d1);
 console.log(english[rand][rand_word]);
 var eng_list=english[rand][rand_word].split(" ");
-generate_rand_words(eng_list,"eng");
+generate_rand_words(eng_list,"eng",1);
 }
 else if(val=="hin"){
 	var d=7*Math.random();
@@ -131,23 +131,24 @@ else if(val=="hin"){
 	/*alert(rand_word);*/
 	console.log(hindi[rand][rand_word]);
 	var hind_list=hindi[rand][rand_word].split(" ");
-	generate_rand_words(hind_list,"hin");
+	generate_rand_words(hind_list,"hin",1);
 }
 
 }
 
 //function to generate random words
-
-function generate_rand_words(list,lang){
+var List;
+function generate_rand_words(list,lang,L){
 
 	var l = list.length, temp, index;  
-        while (l > 0) {  
+        while (l > 0 && L==1) {  
             index = Math.floor(Math.random() * l);  
             l--;  
             temp = list[l];          
             list[l] = list[index];          
             list[index] = temp;      
-        }
+        	}
+        
       if(lang=="eng"){
       	document.querySelector(".makebuttons_eng").style.display="block";
    		var span_button_eng=document.querySelector(".makebuttons_eng");
@@ -164,9 +165,6 @@ function generate_rand_words(list,lang){
     	}
     	document.querySelector(".makebuttons_hin").style.display="none";
     	var eng_words=document.querySelectorAll(".makebuttons_eng button");
-    	/*eng_words[0].onclick=function(){
-    		console.log(this.innerText);
-    	}*/
     	btnclick(eng_words);
     }
      if(lang=="hin"){
@@ -185,8 +183,11 @@ function generate_rand_words(list,lang){
     	document.querySelector(".makebuttons_eng").style.display="none";
     	var hin_words=document.querySelectorAll(".makebuttons_hin button");
     	btnclick(hin_words);
-     }   
+     }       
+List=list;
 }
+
+
 
 function btnclick(words){
 	var printbtn=document.querySelector(".printwords");
@@ -206,6 +207,24 @@ function btnclick(words){
 		}
 	}
 }
+
+//function for reforming the sentence
+
+var reform=document.querySelector(".experiment .reform");
+reform.onclick=function(){
+	var formed_sen=document.querySelector(".formed_sen_message");
+	formed_sen.innerHTML="";
+		if(options.value == "eng")
+			/*alert("eng");*/
+			generate_rand_words(List,"eng",0);
+		else if(options.value== "hin")
+			// alert(List);
+		generate_rand_words(List,"hin",0);
+	this.style.display="none";
+
+}
+
+
 
 
 
