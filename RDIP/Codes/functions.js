@@ -95,6 +95,7 @@ for(let i=0; i<main_1.length; i++){
 //action to be performed when selecting a language
 function dropdown(){
 	options.oninput= function(){	
+	document.querySelector(".experiment .reform").style.display="none";
 	span.classList.remove("hideonscreen");
 	/*alert(options.value);*/
 	if(options.value=="prefer"){
@@ -196,6 +197,7 @@ function btnclick(words){
 		}
 	for(let i=0; i< words.length; i++){
 		words[i].onclick=function(){
+			document.querySelector(".experiment .reform").style.display="block";
 			formed_sen.innerHTML=("<hr><strong style='color:#8B008B; margin-left: 15%'>Formed Sentence </strong><em style='color:#FF69B4'>(after selecting words):</em>");
 			var p_word= document.createElement("span");
 			p_word.innerText=words[i].innerText+" ";
