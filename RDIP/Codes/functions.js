@@ -95,7 +95,8 @@ for(let i=0; i<main_1.length; i++){
 			document.querySelector(".check_sen_res").innerHTML="";
 			document.querySelector(".check_sen").style.display="none";
 			options.value="prefer";
-			document.querySelector(".get_correct").style.display="none";	
+			document.querySelector(".get_correct").style.display="none";
+			document.querySelector(".right_answers").innerText="";	
 	 	}
 	 }
 	});
@@ -110,28 +111,24 @@ function dropdown(){
 	document.querySelector(".check_sen").style.display="none"
 
 	span.classList.remove("hideonscreen");
-	/*alert(options.value);*/
 	if(options.value=="prefer"){
 		alert("select any language");
 		printbtn.innerHTML="";
 		randomize_class.style.display="none";
 		span.style.display="none";
 		document.querySelector(".get_correct").style.display="none";
+		document.querySelector(".get_correct").innerText="GET CORRECT SENTENCE";
+		document.querySelector(".right_answers").innerText="";
 		return false;
 	}
-	if(options.value == "eng"){
+	else if(options.value == "eng" || options.value=="hin"){
 		randomize_class.style.display="block";
 		span.style.display="block";
-		random_sentence("eng");
+		random_sentence(options.value);
 		document.querySelector(".get_correct").style.display="none";
+		document.querySelector(".get_correct").innerText="GET CORRECT SENTENCE";
 	}
-	else if(options.value == "hin"){
-		span.style.display="block";
-		randomize_class.style.display="block";
-		random_sentence("hin");
-		document.querySelector(".get_correct").style.display="none";
-	}
-
+	document.querySelector(".right_answers").innerText="";
 	}
 }	
 
@@ -143,10 +140,8 @@ var d=10*Math.random();
 var rand=Math.floor(d);
 var d1=english[rand].length*Math.random();
 var rand_word=Math.floor(d1);
-console.log(english[rand][rand_word]);
-
+/*console.log(english[rand][rand_word]);*/
 List_eng=english[rand];
-
 var eng_list=english[rand][rand_word].split(" ");
 generate_rand_words(eng_list,"eng",1);
 }
@@ -156,10 +151,8 @@ else if(val=="hin"){
 	var d1=hindi[rand].length*Math.random();
 	var rand_word=Math.floor(d1);
 	/*alert(rand_word);*/
-	console.log(hindi[rand][rand_word]);
-
+	/*console.log(hindi[rand][rand_word]);*/
 	List_hin=hindi[rand];
-
 	var hind_list=hindi[rand][rand_word].split(" ");
 	generate_rand_words(hind_list,"hin",1);
 }
@@ -255,6 +248,9 @@ reform.onclick=function(){
 	document.querySelector(".check_sen_res").innerHTML="";
 	document.querySelector(".check_sen").style.display="none";
 	document.querySelector(".get_correct").style.display="none";
+	document.querySelector(".get_correct").style.display="none";
+	document.querySelector(".get_correct").innerText="GET CORRECT SENTENCE";
+	document.querySelector(".right_answers").innerText="";
 	formed_sen.innerHTML="";
 		if(options.value == "eng")
 			/*alert("eng");*/
@@ -267,6 +263,7 @@ reform.onclick=function(){
  //function to add functionality for check the sentence
 var check_sentence=document.querySelector(".check_sen");
 var check_sentence_res=document.querySelector(".check_sen_res");
+var correct_answers;
 check_sentence.onclick=function(){
 		if(options.value=="eng" ){
 			if(List_eng.includes(printbtn.innerText)){
@@ -277,6 +274,7 @@ check_sentence.onclick=function(){
 				check_sentence_res.innerHTML="<strong style='color: red;font-size:36px; margin-left:35% '>Wrong answer!!! </strong>";
 				document.querySelector(".get_correct").style.display="block";
 			}
+			correct_answers=List_eng;
 		}
 		else if(options.value=="hin"){
 			if(List_hin.includes(printbtn.innerText)){
@@ -287,9 +285,39 @@ check_sentence.onclick=function(){
 				check_sentence_res.innerHTML="<strong style='color: red;font-size:36px; margin-left:35% '>Wrong answer!!! </strong>";
 				document.querySelector(".get_correct").style.display="block";	
 			}
-		}
-			
+			correct_answers=List_hin;
+		}	
 }
 
+//function to get correct answers upon a wrong try
 
+
+var get_correct_sen=document.querySelector(".get_correct");
+get_correct_sen.onclick=function (){
+	
+	var inner_message=get_correct_sen.innerText;
+	var corr_disp="";
+	var right_answers=document.querySelector(".right_answers");
+	for(i of correct_answers){
+			corr_disp+=i+"\n";
+			
+	}
+	if(inner_message=="GET CORRECT SENTENCE" || inner_message=="GET ANSWERS"){
+		document.querySelector(".get_correct").innerText="Hide The correct sentence";
+			var h2= document.createElement("h2");
+			h2.innerHTML="<h2 style='color: green'>Correct answers</h2>";
+			right_answers.appendChild(h2);
+			var p_answers=document.createElement("p");
+			p_answers.innerText=corr_disp
+			right_answers.appendChild(p_answers);
+			right_answers.style.display="block";
+	}
+	if(inner_message=="Hide The correct sentence"){
+		document.querySelector(".get_correct").innerText="GET ANSWERS";
+		while (right_answers.hasChildNodes()) {  
+		  right_answers.removeChild(right_answers.firstChild);
+		}
+	right_answers.style.display="none";
+	}
+};
 
